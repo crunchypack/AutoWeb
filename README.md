@@ -20,8 +20,9 @@ Changes in js- and css-files are concated and minified before being sent to the 
 By having NodeJS and npm installed you simply navigate to the main folder (AutoWeb) in a terminal and execute the following commands:
 
 ```sh
+$ npm install gulp -g
 $ npm install
 $ gulp
 ```
-
+The first command is to install gulp globally, can be ignored if you already have it installed.
 Now you can open any html file in the publication folder using liveserver with Visual Studio Code. And you can start working on the source folder. Everytime you save, the changes will immediately occour in the pub-folder.
