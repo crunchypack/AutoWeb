@@ -1,7 +1,9 @@
+/* Variables */
 const gulp      = require("gulp");
 const concat    = require("gulp-concat");
 const uglify    = require("gulp-uglify");
 const cleanCSS  = require("gulp-clean-css");
+const imagemin  = require("gulp-imagemin");
 
 /* Move html-files to publication folder*/
 gulp.task('copyhtml', function(){
@@ -24,12 +26,19 @@ gulp.task('concminjs',function(){
         .pipe(uglify())
         .pipe(gulp.dest("pub/js"));
 });
+/* Minify images */
+gulp.task('mini-img', function(){
+    return gulp.src("src/images/*")
+        .pipe(imagemin())
+        .pipe(gulp.dest("pub/images"));
+});
 /* Check for changes in files */
 gulp.task("watcher", function(){
     gulp.watch("src/js/*.js", ['concminjs']);
     gulp.watch("src/*.html", ['copyhtml']);
     gulp.watch("src/css/*.css", ['miniconc-css']);
+    gulp.watch("src/images/*",['mini-img']);
 }) ;
 
 /* Run all tasks with default */
-gulp.task("default",["copyhtml","miniconc-css", "concminjs","watcher"]);
+gulp.task("default",["copyhtml","miniconc-css", "concminjs","mini-img","watcher"]);
