@@ -5,7 +5,7 @@
 The purpose of the automatisation is to work more efficiently. By minifying, concating and moving files automatically you save alot of time and maintain a concurrent structure on your files.
 
 ----
-## What packages are used?
+## What packages are used
 * **gulp-concat** - Used for concating JavaScript and CSS files
 * **gulp-uglify** - Used for minifying JavaScript
 * **gulp-clean-css** - Used for minifying CSS
