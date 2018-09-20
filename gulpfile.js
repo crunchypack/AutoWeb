@@ -2,7 +2,9 @@
 const gulp      = require("gulp");
 const concat    = require("gulp-concat");
 const uglify    = require("gulp-uglify");
+const sass      = require("gulp-sass");
 const cleanCSS  = require("gulp-clean-css");
+const sourcemap = require("gulp-sourcemaps");
 const imagemin  = require("gulp-imagemin");
 
 /* Move html-files to publication folder*/
@@ -12,11 +14,12 @@ gulp.task('copyhtml', function(){
 });
 
 /* Minify and concat css */
-gulp.task('miniconc-css', function(){
-    return gulp.src("src/css/*.css")
-        .pipe(concat("style.css"))
-        .pipe(gulp.dest("pub/css"))
-        .pipe(cleanCSS({compatibility: 'ie8'}))
+gulp.task('scss', function(){
+    return gulp.src("src/css/*.scss")
+        .pipe(sourcemap.init())
+        .pipe(sass().on('error',sass.logError))
+        .pipe(sourcemap.write())
+       // .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(gulp.dest('pub/css'));
 });
 /* Concat and minify JavaScript files*/
@@ -36,9 +39,9 @@ gulp.task('mini-img', function(){
 gulp.task("watcher", function(){
     gulp.watch("src/js/*.js", ['concminjs']);
     gulp.watch("src/*.html", ['copyhtml']);
-    gulp.watch("src/css/*.css", ['miniconc-css']);
+    gulp.watch("src/css/*.scss", ['scss']);
     gulp.watch("src/images/*",['mini-img']);
 }) ;
 
 /* Run all tasks with default */
-gulp.task("default",["copyhtml","miniconc-css", "concminjs","mini-img","watcher"]);
+gulp.task("default",["copyhtml","scss", "concminjs","mini-img","watcher"]);
